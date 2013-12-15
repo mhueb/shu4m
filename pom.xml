@@ -3,12 +3,12 @@
 
 	<groupId>org.shu4m</groupId>
 	<version>1.0-SNAPSHOT</version>
-	<artifactId>shu4m</artifactId>
+	<artifactId>shu4m-maven-plugin</artifactId>
 	<name>Some maven utilities</name>
 	<packaging>maven-plugin</packaging>
 	
 	<properties>
-		<javaVersion>1.7</javaVersion>
+		<javaVersion>1.6</javaVersion>
 		<debug>true</debug>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
