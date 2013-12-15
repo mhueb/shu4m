@@ -1,0 +1,4 @@
+maver
+=====
+
+Version class generator
