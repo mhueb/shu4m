@@ -1,4 +1,5 @@
-maver
-=====
+Maven Plugins
+=============
 
-Version class generator
+generate:version - version class generator
+
