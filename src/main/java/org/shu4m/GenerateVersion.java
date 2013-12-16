@@ -36,7 +36,7 @@ import org.apache.maven.project.MavenProject;
  * 
  */
 @Mojo(name = "generate-version", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class VersionGenerator extends AbstractMojo {
+public class GenerateVersion extends AbstractMojo {
 
   private static final String GROUP_ID = "GROUP_ID";
   private static final String ARTIFACT_ID = "ARTIFACT_ID";
