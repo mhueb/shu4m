@@ -15,7 +15,14 @@
  */
 package org.shu4m;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.maven.plugin.MojoExecutionException;
+
 public class Version {
+  private static final Pattern VERSION_PARSER = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)(-((\\d+)|([a-zA-Z][a-zA-Z0-9_-]+)))?");
+
   private int major;
   private Integer minor;
   private Integer incremental;
@@ -60,6 +67,34 @@ public class Version {
 
   public String getQualifier() {
     return qualifier;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder buff = new StringBuilder();
+    buff.append(this.getMajor());
+    Utils.append(buff, '.', this.getMinor());
+    Utils.append(buff, '.', this.getIncremental());
+    Utils.append(buff, '-', this.getBuild());
+    Utils.append(buff, '-', this.getQualifier());
+    return buff.toString();
+  }
+
+  public static Version parseVersion(String version) throws MojoExecutionException {
+    if (Utils.isNotBlank(version)) {
+      Matcher matcher = VERSION_PARSER.matcher(version.trim());
+      if (matcher.matches()) {
+        if (matcher.groupCount() > 3) {
+          if (matcher.group(6) != null)
+            return new Version(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(6)));
+          else
+            return new Version(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)), matcher.group(7));
+        }
+        else
+          return new Version(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)));
+      }
+    }
+    throw new MojoExecutionException("Unhandled version format: '" + version + "'");
   }
 
 }

@@ -15,54 +15,17 @@
  */
 package org.shu4m;
 
-import static org.junit.Assert.fail;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class UtilsTest {
-
-//  @Test
-//  public void testPackageToPath() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testClean() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testFormatDate() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testMakeJavaName() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testMakeDir() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testClose() {
-//    fail("Not yet implemented");
-//  }
-
-//  @Test
-//  public void testExecuteSetVersion() {
-//    fail("Not yet implemented");
-//  }
+public class VersionTest {
 
   @Test
   public void testFormatVersion() {
-    Assert.assertEquals("1.0.3", Utils.formatVersion(new Version(1, 0, 3)));
-    Assert.assertEquals("1.0.3-123", Utils.formatVersion(new Version(1, 0, 3, 123)));
-    Assert.assertEquals("1.0.3-BETA3", Utils.formatVersion(new Version(1, 0, 3, "BETA3")));
+    Assert.assertEquals("1.0.3", new Version(1, 0, 3).toString());
+    Assert.assertEquals("1.0.3-123", new Version(1, 0, 3, 123).toString());
+    Assert.assertEquals("1.0.3-BETA3", new Version(1, 0, 3, "BETA3").toString());
   }
 
   @Test
@@ -74,24 +37,24 @@ public class UtilsTest {
 
   @Test
   public void testParseVersion() throws MojoExecutionException {
-    verify(Utils.parseVersion("1.0.1"), 1, 0, 1);
-    verify(Utils.parseVersion("1.2.3-BETA1"), 1, 2, 3, "BETA1");
-    verify(Utils.parseVersion("1.0.1-133"), 1, 0, 1, 133);
+    verify(Version.parseVersion("1.0.1"), 1, 0, 1);
+    verify(Version.parseVersion("1.2.3-BETA1"), 1, 2, 3, "BETA1");
+    verify(Version.parseVersion("1.0.1-133"), 1, 0, 1, 133);
   }
 
   @Test(expected = MojoExecutionException.class)
   public void testParseVersion1() throws MojoExecutionException {
-    Utils.parseVersion("1.0");
+    Version.parseVersion("1.0");
   }
 
   @Test(expected = MojoExecutionException.class)
   public void testParseVersion2() throws MojoExecutionException {
-    Utils.parseVersion("1.a-123");
+    Version.parseVersion("1.a-123");
   }
 
   @Test(expected = MojoExecutionException.class)
   public void testParseVersion3() throws MojoExecutionException {
-    Utils.parseVersion("1.1-123a");
+    Version.parseVersion("1.1-123a");
   }
 
   private void verify(Version version, int major, Integer minor, Integer incremental) {
