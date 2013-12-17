@@ -35,7 +35,10 @@ import org.apache.maven.project.MavenProject;
 public class DumpPOM extends AbstractMojo {
 
   @Parameter(required = true, readonly = true, property = "prefix", defaultValue = "pom_")
-  private MavenProject prefix;
+  private String prefix;
+
+  @Parameter(required = true, readonly = true, property = "filename", defaultValue = "pom")
+  private String filename;
 
   @Parameter(required = true, readonly = true, property = "project")
   private MavenProject mavenProject;
@@ -54,9 +57,10 @@ public class DumpPOM extends AbstractMojo {
     properties.setProperty(prefix + "artifactid", mavenProject.getArtifactId());
     properties.setProperty(prefix + "version", mavenProject.getVersion());
     properties.setProperty(prefix + "name", mavenProject.getName());
-    properties.setProperty(prefix + "description", mavenProject.getDescription());
+    if (Utils.isNotBlank(mavenProject.getDescription()))
+      properties.setProperty(prefix + "description", mavenProject.getDescription());
 
-    File file = new File(mavenProject.getBuild().getDirectory(), "pom.properties");
+    File file = new File(mavenProject.getBuild().getDirectory(), filename + ".properties");
     Utils.makeDir(file.getParentFile());
 
     FileWriter writer = null;
