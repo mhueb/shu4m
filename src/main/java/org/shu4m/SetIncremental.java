@@ -21,16 +21,19 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-@Mojo(name = "setincremental", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+@Mojo(name = "set-incremental", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
 public class SetIncremental extends AbstractVersionManipulator {
 
   @Parameter(required = true, property = "incremental")
   private Integer incremental;
 
+  @Parameter(required = false, property = "qualifier")
+  private String qualifier;
+
   public void execute() throws MojoExecutionException, MojoFailureException {
-    getLog().info("set incremental to" + incremental);
+    getLog().info("set incremental");
     Version version = Version.parseVersion(mavenProject.getVersion());
-    Version newVersion = Version.toVersion(version.getMajor(), version.getMinor(), incremental, version.getBuild(), version.getQualifier());
+    Version newVersion = Version.toVersion(version.getMajor(), version.getMinor(), incremental, null, qualifier);
     executeSetVersion(newVersion);
   }
 }

@@ -21,14 +21,14 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-@Mojo(name = "setbuildnumber", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+@Mojo(name = "set-buildnumber", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
 public class SetBuildNumber extends AbstractVersionManipulator {
 
   @Parameter(required = true, property = "buildnumber")
   private Integer buildNumber;
 
   public void execute() throws MojoExecutionException, MojoFailureException {
-    getLog().info("Set build number " + buildNumber);
+    getLog().info("Set build number");
     Version version = Version.parseVersion(mavenProject.getVersion());
     Version newVersion = new Version(version.getMajor(), version.getMinor(), version.getIncremental(), buildNumber);
     executeSetVersion(newVersion);

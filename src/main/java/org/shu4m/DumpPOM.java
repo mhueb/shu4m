@@ -31,7 +31,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-@Mojo(name = "dumppom", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+@Mojo(name = "dump-pom", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
 public class DumpPOM extends AbstractMojo {
 
   @Parameter(required = true, readonly = true, property = "prefix", defaultValue = "pom_")

@@ -21,7 +21,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-@Mojo(name = "setqualifier", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+@Mojo(name = "set-qualifier", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
 public class SetQualifier extends AbstractVersionManipulator {
 
   @Parameter(required = true, property = "qualifier")

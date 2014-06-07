@@ -19,14 +19,21 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
-@Mojo(name = "next-buildnumber", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
-public class NextBuildNumber extends AbstractVersionManipulator {
+@Mojo(name = "set-incremental-and-buildnumber", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+public class SetIncrementalAndBuildNumber extends AbstractVersionManipulator {
+
+  @Parameter(required = true, property = "buildnumber")
+  private Integer buildNumber;
+
+  @Parameter(required = true, property = "incremental")
+  private Integer incremental;
 
   public void execute() throws MojoExecutionException, MojoFailureException {
-    getLog().info("Set next build number");
+    getLog().info("Set build incremental to " + incremental + " and buildnumber to " + buildNumber);
     Version version = Version.parseVersion(mavenProject.getVersion());
-    Version newVersion = new Version(version.getMajor(), version.getMinor(), version.getIncremental(), next(version.getBuild()));
+    Version newVersion = new Version(version.getMajor(), version.getMinor(), incremental, buildNumber);
     executeSetVersion(newVersion);
   }
 }

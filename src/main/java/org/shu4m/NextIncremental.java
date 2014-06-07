@@ -20,7 +20,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
-@Mojo(name = "nextincremental", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
+@Mojo(name = "next-incremental", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
 public class NextIncremental extends AbstractVersionManipulator {
 
   public void execute() throws MojoExecutionException, MojoFailureException {
