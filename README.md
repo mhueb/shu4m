@@ -25,18 +25,18 @@
 
 ### Set a new build number:
 ```
-	mvn org.shu4m:shu4m-maven-plugin:set-buildnumber -Dbuildnumber=4711
+	mvn org.shu4m:shu4m-maven-plugin:set-buildnumber --non-recursive -Dbuildnumber=4711
 ```
 
 ### Increment build number by one:
 ```
-	mvn org.shu4m:shu4m-maven-plugin:next-buildnumber
+	mvn org.shu4m:shu4m-maven-plugin:next-buildnumber --non-recursive
 ```
 
 ### Set a new incremental:
 ```
-	mvn org.shu4m:shu4m-maven-plugin:set-incremental -Dincremental=4711
-	mvn org.shu4m:shu4m-maven-plugin:set-incremental -Dincremental=4711 -Dqualifier="Final"
+	mvn org.shu4m:shu4m-maven-plugin:set-incremental --non-recursive -Dincremental=4711
+	mvn org.shu4m:shu4m-maven-plugin:set-incremental --non-recursive -Dincremental=4711 -Dqualifier="Final"
 ```
 
 ### Increment incremental:
@@ -46,12 +46,12 @@
 
 ### Set a new incremental and buildnumber:
 ```
-	mvn org.shu4m:shu4m-maven-plugin:set-incremental-and-buildnumber -Dincremental=42 -Dbuildnumber=4711
+	mvn org.shu4m:shu4m-maven-plugin:set-incremental-and-buildnumber --non-recursive -Dincremental=42 -Dbuildnumber=4711
 ```
 
 ### Set a new Qualifier:
 ```
-	mvn org.shu4m:shu4m-maven-plugin:set-qualifier -Dqualifier=BETA1
+	mvn org.shu4m:shu4m-maven-plugin:set-qualifier --non-recursive -Dqualifier=BETA1
 ```
 
 ### Dump pom to property file

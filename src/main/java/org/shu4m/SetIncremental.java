@@ -31,7 +31,10 @@ public class SetIncremental extends AbstractVersionManipulator {
   private String qualifier;
 
   public void execute() throws MojoExecutionException, MojoFailureException {
-    getLog().info("set incremental");
+    if (qualifier != null)
+      getLog().info("set incremental to " + incremental + " and qualifier to " + qualifier);
+    else
+      getLog().info("set incremental to " + incremental);
     Version version = Version.parseVersion(mavenProject.getVersion());
     Version newVersion = Version.toVersion(version.getMajor(), version.getMinor(), incremental, qualifier != null ? null : version.getBuild(), qualifier != null ? qualifier : version.getQualifier());
     executeSetVersion(newVersion);
