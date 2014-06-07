@@ -1,7 +1,6 @@
-Maven Plugins
-=============
+# Maven Plugins
 
-Generate a version class from maven pom
+## Generate a version class from maven pom
 
 	<plugin>
 		<groupId>org.shu4m</groupId>
@@ -21,19 +20,29 @@ Generate a version class from maven pom
 		</executions>
 	</plugin>
 	
-2 - Manipulate project version
+## Manipulate project version
 
-Set a new Build number:
+1. Set a new Build number:
+
 	mvn org.shu4m:shu4m-maven-plugin:setbuildnumber -Dbuildnumber=4711
 
-Increment build number by one:
+2. Increment build number by one:
+
 	mvn org.shu4m:shu4m-maven-plugin:nextbuildnumber
 	
-Set a new Incremental:
+3. Set a new Incremental:
+
 	mvn org.shu4m:shu4m-maven-plugin:setincremental -Dincremental=4711
 
-Increment incremental:
+4. Increment incremental:
+
 	mvn org.shu4m:shu4m-maven-plugin:nextincremental
 
-Set a new Qualifier:
+5. Set a new Qualifier:
+
 	mvn org.shu4m:shu4m-maven-plugin:setqualifier -Dqualifier=BETA1
+
+6. Dump pom to property file
+
+	mvn org.shu4m:shu4m-maven-plugin:dumppom -Dprefix="pom_" -Dfilename="mine.properties"
+
