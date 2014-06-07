@@ -67,8 +67,11 @@ public class Utils {
   }
 
   public static void append(StringBuilder buff, char separator, Object value) {
-    if (value != null)
-      buff.append(separator).append(value);
+    if (value != null) {
+      String text = String.valueOf(value);
+      if (!text.isEmpty())
+        buff.append(separator).append(value);
+    }
   }
 
   public static boolean isNotBlank(String string) {
