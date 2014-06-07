@@ -30,48 +30,20 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.BuildPluginManager;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-@Mojo(name = "update-projectversion", requiresDirectInvocation = true, defaultPhase = LifecyclePhase.NONE)
-public class UpdateProjectVersion extends AbstractMojo {
-
-  @Parameter(required = false, property = "incremental")
-  private Integer incremental;
-
-  @Parameter(required = false, property = "incincremental")
-  private Boolean incIncrement;
-
-  @Parameter(required = false, property = "buildnumber")
-  private Integer buildNumber;
-
-  @Parameter(required = false, property = "incbuildnumber")
-  private Boolean incBuildNumber;
-
-  @Parameter(required = false, property = "qualifier")
-  private String qualifier;
+public abstract class AbstractVersionManipulator extends AbstractMojo {
 
   @Parameter(required = true, readonly = true, property = "project")
-  private MavenProject mavenProject;
+  protected MavenProject mavenProject;
 
   @Parameter(required = true, readonly = true, property = "session")
-  private MavenSession mavenSession;
+  protected MavenSession mavenSession;
 
   @Component
-  private BuildPluginManager pluginManager;
-
-  public void execute() throws MojoExecutionException, MojoFailureException {
-    getLog().info("increment version");
-    if (buildNumber != null && qualifier != null)
-      throw new MojoFailureException("Use of properties 'buildnumber' and 'qualifier' together are not allowed");
-    Version version = Version.parseVersion(mavenProject.getVersion());
-    Version newVersion = adaptVersion(version);
-    executeSetVersion(newVersion);
-  }
+  protected BuildPluginManager pluginManager;
 
   public void executeSetVersion(Version newVersion) throws MojoExecutionException {
     // @formatter:off
@@ -90,21 +62,9 @@ public class UpdateProjectVersion extends AbstractMojo {
     // @formatter:on
   }
 
-  private Version adaptVersion(Version version) {
-    int incrementalEx = Utils.getReplaceValue(version.getIncremental(), incremental);
-    Integer buildNumberEx = Utils.getReplaceValue(version.getBuild(), buildNumber);
-    String qualifierEx = Utils.getReplaceValue(version.getQualifier(), qualifier);
-
-    if (incIncrement && incremental == null)
-      ++incrementalEx;
-
-    if (incBuildNumber && buildNumber == null && buildNumberEx != null)
-      ++buildNumberEx;
-
-    if (qualifierEx != null)
-      return new Version(version.getMajor(), version.getMinor(), incrementalEx, qualifierEx);
-    else
-      return new Version(version.getMajor(), version.getMinor(), incrementalEx, buildNumberEx);
+  protected int next(Integer value) {
+    if (value == null)
+      value = 0;
+    return value + 1;
   }
-
 }

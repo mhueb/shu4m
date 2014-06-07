@@ -97,4 +97,11 @@ public class Version {
     throw new MojoExecutionException("Unhandled version format: '" + version + "'");
   }
 
+  public static Version toVersion(int major, int minor, Integer incremental, Integer buildnumber, String qualifier) {
+    if (buildnumber != null)
+      return new Version(major, minor, incremental, buildnumber);
+    else
+      return new Version(major, minor, incremental, qualifier);
+  }
+
 }
